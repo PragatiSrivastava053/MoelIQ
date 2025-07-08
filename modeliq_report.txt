@@ -1,0 +1,109 @@
+ ModelIQ - AutoML Evaluation Report
+====================================
+
+
+XGBoost:
+accuracy: 0.8533
+precision: 0.9
+recall: 0.8411
+f1_score: 0.8696
+confusion_matrix: [[67, 10], [17, 90]]
+
+LightGBM:
+accuracy: 0.837
+precision: 0.8889
+recall: 0.8224
+f1_score: 0.8544
+confusion_matrix: [[66, 11], [19, 88]]
+
+RandomForest:
+accuracy: 0.8804
+precision: 0.8972
+recall: 0.8972
+f1_score: 0.8972
+confusion_matrix: [[66, 11], [11, 96]]
+
+Best Model: RandomForest
+
+Top Features (SHAP):
+- ST_SLOPE: 0.1863
+- CHESTPAINTYPE: 0.0833
+- EXERCISEANGINA: 0.0823
+- OLDPEAK: 0.0575
+- CHOLESTEROL: 0.0482
+
+Cortex Feedback:
+Certainly! Here’s a detailed analysis based on your results:
+
+---
+
+### 1. **Which model is best and why?**
+
+**RandomForest** is the best model among the three. Here’s why:
+
+- **Highest Accuracy:** 0.8804 (better than XGBoost’s 0.8533 and LightGBM’s 0.837)
+- **Best F1 Score:** 0.8972 (higher than XGBoost’s 0.8696 and LightGBM’s 0.8544)
+- **Balanced Precision & Recall:** Both are 0.8972, indicating the model is not favoring one class over the other.
+- **Confusion Matrix:** Lowest number of false negatives (11) and a relatively low number of false positives (11), which is important in medical diagnosis (missing a disease case is costly).
+
+**Summary:**  
+RandomForest outperforms the others in all key metrics, making it the best choice for this dataset.
+
+---
+
+### 2. **What potential issues or patterns do you observe?**
+
+#### **a. Class Imbalance**
+- The confusion matrices suggest a slight imbalance, but not severe. However, the number of false negatives (patients with disease predicted as healthy) is still notable, especially for XGBoost and LightGBM.
+
+#### **b. Overfitting Risk**
+- RandomForest has high and equal precision/recall, which is good, but if the dataset is small, there’s a risk of overfitting. Cross-validation results would help confirm this.
+
+#### **c. Feature Importance**
+- The top feature, **ST_SLOPE**, has much higher importance than the others, suggesting the model relies heavily on it. This could be a sign of feature dominance or potential data leakage if this feature is too closely related to the target.
+
+#### **d. Model Similarity**
+- XGBoost and LightGBM have similar confusion matrices and performance, but both underperform compared to RandomForest. This could be due to hyperparameter settings or the nature of the data (RandomForest may be better suited for this dataset).
+
+---
+
+### 3. **What can we do to improve performance further?**
+
+#### **a. Hyperparameter Tuning**
+- Use grid search or Bayesian optimization to fine-tune RandomForest (number of trees, max depth, min samples split, etc.).
+- Similarly, tune XGBoost and LightGBM parameters.
+
+#### **b. Feature Engineering**
+- Create new features or transform existing ones (e.g., binning continuous variables, interaction terms).
+- Check for multicollinearity and remove/reduce redundant features.
+
+#### **c. Address Class Imbalance**
+- If the dataset is imbalanced, try SMOTE, ADASYN, or class weighting to reduce false negatives.
+
+#### **d. Cross-Validation**
+- Use k-fold cross-validation to ensure the model generalizes well and isn’t overfitting.
+
+#### **e. Ensemble Methods**
+- Combine predictions from multiple models (e.g., voting classifier, stacking) to potentially boost performance.
+
+#### **f. Data Quality & Size**
+- If possible, collect more data to improve model robustness.
+- Clean data thoroughly (handle outliers, missing values).
+
+#### **g. Model Interpretation**
+- Use SHAP or LIME to better understand feature contributions and check for potential data leakage.
+
+---
+
+## **Summary Table**
+
+| Model         | Accuracy | Precision | Recall  | F1 Score | Best? |
+|---------------|----------|-----------|---------|----------|-------|
+| XGBoost       | 0.8533   | 0.9000    | 0.8411  | 0.8696   | No    |
+| LightGBM      | 0.8370   | 0.8889    | 0.8224  | 0.8544   | No    |
+| RandomForest  | 0.8804   | 0.8972    | 0.8972  | 0.8972   | **Yes** |
+
+---
+
+**In summary:**  
+RandomForest is the best model based on your metrics. To further improve, focus on hyperparameter tuning, feature engineering, addressing class imbalance, and validating with cross-validation. Also, ensure there’s no data leakage, especially with highly influential features.
