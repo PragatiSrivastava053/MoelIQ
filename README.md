@@ -15,7 +15,7 @@ ModelIQ is a plug-and-play, AI-powered assistant that analyzes your machine lear
   Compute metrics like accuracy, F1 score, confusion matrix, and SHAP feature importance automatically.
 
 - **LLM-Powered Feedback**  
-  Uses Snowflake Cortex with GPT-4.1 to generate plain-English summaries and actionable tuning recommendations.
+  Uses Snowflake Cortex with GPT-4.1 to generate plain-English summaries and actionable tuning recommendations (any model can be used given in Snowflake).
 
 - **Optional Report Export**  
   Automatically generate a `.txt` report of all insights and feedback in one file.
@@ -48,6 +48,6 @@ ModelIQ is a plug-and-play, AI-powered assistant that analyzes your machine lear
 
 ```bash
 ├── modeliq_main.py         # Full end-to-end script
-├── modeliq_report.txt      # (optional) AI-generated report
+├── modeliq_report.txt      # AI-generated report
 ├── README.md               # You're here
 └── requirements.txt        # Dependencies
