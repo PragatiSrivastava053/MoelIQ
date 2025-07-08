@@ -18,13 +18,13 @@ warnings.filterwarnings("ignore")
 # Snowflake Connection
 # ---------------------------
 connection_parameters = {
-    "account": "FTAKKQI-YJ13868",
-    "user": "PRAGATI",
-    "password": "Ds53@chclnchco",
-    "role": "ACCOUNTADMIN",
-    "warehouse": "COMPUTE_WH",
-    "database": "AUTO_ML_DB",
-    "schema": "AUTO_ML_SCHEMA"
+    "account": "<your_account>",
+    "user": "<your_user>",
+    "password": "<your_password>",
+    "role": "<your_role>",
+    "warehouse": "<your_warehouse>",
+    "database": "<your_database>",
+    "schema": "<your_schema>"
 }
 
 session = Session.builder.configs(connection_parameters).create()
